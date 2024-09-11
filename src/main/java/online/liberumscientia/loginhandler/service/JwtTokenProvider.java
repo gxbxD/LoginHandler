@@ -1,42 +1,38 @@
 package online.liberumscientia.loginhandler.service;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.stereotype.Service;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.JwtParserBuilder;
+import io.jsonwebtoken.security.Keys;
 
-import java.util.Date;
+import java.security.Key;
 
-@Service
 public class JwtTokenProvider {
+    private final Key key; // chave para assinatura do JWT
 
-    private static final String SECRET_KEY = "your-secret-key"; // Altere para uma chave secreta segura
-    private static final long EXPIRATION_TIME = 864_000_00; // 1 dia em milissegundos
+    public JwtTokenProvider(String secret) {
+        this.key = Keys.hmacShaKeyFor(secret.getBytes()); // configura a chave usando o segredo
+    }
 
-    public String generateToken(String email) {
+    @SuppressWarnings("deprecation")
+    public String createToken(String username) {
         return Jwts.builder()
-                .setSubject(email)
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes())
+                .setSubject(username)
+                .signWith(key, SignatureAlgorithm.HS256) // assinatura com chave
                 .compact();
     }
 
-    public String getEmailFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(SECRET_KEY.getBytes())
-                .parseClaimsJws(token)
-                .getBody();
-        return claims.getSubject();
-    }
+    @SuppressWarnings("deprecation")
+    public Claims parseToken(String token) throws JwtException {
+        JwtParser parser = ((JwtParserBuilder) Jwts.builder())
+                .setSigningKey(key)
+                .build();
 
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parser()
-                .setSigningKey(SECRET_KEY.getBytes())
-                .parseClaimsJws(token);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        Jws<Claims> claimsJws = parser.parseClaimsJws(token); // parse e valida o token
+        return claimsJws.getBody(); // retorna as reivindicações (claims)
     }
 }

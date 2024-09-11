@@ -23,7 +23,7 @@ public class AuthService {
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("Senha incorreta");
         }
-        return jwtTokenProvider.generateToken(email);
+        return jwtTokenProvider.createToken(email);
     }
 
     public User registerUser(String email, String password) {
