@@ -33,6 +33,6 @@ jobs:
     - name:  Login Docker Hub
       run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
     - name: Build docker image
-      run: docker build -t gxbxdev/Login_Handle .
+      run: docker build -t gxbxdev/login_handle .
     - name: Push image docker
       run: docker push gxbxdev/login_handle
