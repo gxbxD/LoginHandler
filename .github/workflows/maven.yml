@@ -17,7 +17,7 @@ on:
 jobs:
   build:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -36,3 +36,13 @@ jobs:
       run: docker build -t gxbxdev/login_handler .
     - name: Push image docker
       run: docker push gxbxdev/login_handler
+
+  deploy:
+    
+    needs: build
+    runs-on: self-hosted
+    steps:
+    - name: Pull image from docker hub
+      run: docker pull gxbxdev/login_handler:latest
+    - name: Run docker container
+      run: docker run -d -p 8080:8080 --name login_handler gxbxdev/login_handler
