@@ -11,8 +11,8 @@
 	<groupId>online.liberumscientia</groupId>
 	<artifactId>LoginHandler</artifactId>
 	<version>0.0.1</version>
-	<name>LoginHandler</name>
-	<description>Login_Handler</description>
+	<name>login_handler</name>
+	<description>Login Handler</description>
 	<url/>
 	<licenses>
 		<license/>

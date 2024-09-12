@@ -29,10 +29,10 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
     - name: Build Project
-      run: mvn clean install -DskipTests   
+      run: mvn clean install 
     - name:  Login Docker Hub
       run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
     - name: Build docker image
-      run: docker build -t gxbxdev/login_handle .
+      run: docker build -t gxbxdev/login_handler .
     - name: Push image docker
-      run: docker push gxbxdev/login_handle
+      run: docker push gxbxdev/login_handler
