@@ -35,4 +35,4 @@ jobs:
     - name: Build docker image
       run: docker build -t gxbxdev/Login_Handle .
     - name: Push image docker
-      run: docker push gxbxdev/Login_Handle
+      run: docker push gxbxdev/login_handle
