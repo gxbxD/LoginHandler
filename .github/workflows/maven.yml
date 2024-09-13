@@ -44,5 +44,9 @@ jobs:
     steps:
     - name: Pull image from docker hub
       run: docker pull gxbxdev/login_handler:latest
+      - name: Stop and remove existing container
+      run: |
+        docker stop login_handler || true
+        docker rm login_handler || true
     - name: Run docker container
       run: docker run -d -p 8080:8080 -e DB_USER=${{secrets.DB_USER}} -e DB_PASSWORD='${{secrets.DB_PASSWORD}}' -e DB_NAME=${{secrets.DB_NAME}} -e DB_HOST=${{secrets.DB_HOST}} -e DB_PORT=${{secrets.DB_PORT}} --name login_handler gxbxdev/login_handler
