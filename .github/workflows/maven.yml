@@ -47,4 +47,4 @@ jobs:
     - name: Remove docker container
       run: docker rm -f login_handler
     - name: Run docker container
-      run: docker run -d -p 8080:8080 -e DB_USER=${{secrets.DB_USER}} -e DB_PASSWORD='${{secrets.DB_PASSWORD}}' -e DB_NAME=${{secrets.DB_NAME}} -e DB_HOST=${{secrets.DB_HOST}} -e DB_PORT=${{secrets.DB_PORT}} --name login_handler gxbxdev/login_handler
+      run: docker run -d -p 8446:8446 -e DB_USER=${{secrets.DB_USER}} -e DB_PASSWORD='${{secrets.DB_PASSWORD}}' -e DB_NAME=${{secrets.DB_NAME}} -e DB_HOST=${{secrets.DB_HOST}} -e DB_PORT=${{secrets.DB_PORT}} --name login_handler gxbxdev/login_handler
