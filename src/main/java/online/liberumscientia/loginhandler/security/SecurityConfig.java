@@ -17,37 +17,35 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfig {
 
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://liberumscientia.site/", "https://liberumscientia.shop/", "https://www.liberumscientia.site/", "https://www.liberumscientia.shop/", "https://liberumscientia.site/tryfindme")); // URL do seu frontend
+        configuration.setAllowedOrigins(Arrays.asList(
+            "https://liberumscientia.site", 
+            "https://liberumscientia.shop", 
+            "https://www.liberumscientia.site", 
+            "https://www.liberumscientia.shop", 
+            "https://liberumscientia.site/tryfindme"
+        )); // URL do seu frontend
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true); // Permitir credenciais, se necessário
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
-    @SuppressWarnings({ "deprecation", "removal" })
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.cors()
+        http.cors() // Adiciona o filtro CORS
         .and()
                 .authorizeRequests(requests -> requests
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api/register", "auth/home", "/api/auth/home").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api/register", "/auth/home", "/api/auth/home").permitAll()
                         .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable());
 
         return http.build();
-    }
-
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .formLogin(login -> login
-                        .loginPage("/home")
-                        .permitAll());
     }
 
     @Bean
