@@ -21,7 +21,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://liberumscientia.site/", "https://liberumscientia.shop/", "https://www.liberumscientia.site/", "https://www.liberumscientia.shop/")); // URL do seu frontend
+        configuration.setAllowedOrigins(Arrays.asList("https://liberumscientia.site/", "https://liberumscientia.shop/", "https://www.liberumscientia.site/", "https://www.liberumscientia.shop/", "https://api.liberumscientia.shop/")); // URL do seu frontend
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
 
