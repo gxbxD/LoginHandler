@@ -43,11 +43,12 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
             "https://liberumscientia.site", 
-            "https://liberumscientia.shop"
+            "https://liberumscientia.shop",
+            "https://liberumscientia.site/tryfindme"
         )); // URLs permitidas para o /api/register
         configuration.setAllowedMethods(Arrays.asList("POST")); // Apenas POST para /api/register
         configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
-        configuration.setAllowCredentials(true); // Permitir credenciais
+        configuration.setAllowCredentials(false); // Permitir credenciais
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/api/register", configuration); // Aplica apenas para o /api/register
