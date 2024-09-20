@@ -26,13 +26,8 @@ public class SecurityConfig {
             "https://liberumscientia.shop", 
             "https://www.liberumscientia.site", 
             "https://www.liberumscientia.shop", 
-<<<<<<< HEAD
-            "https://liberumscientia.site/"
-        )); // URL do seu frontend
-=======
-            "https://liberumscientia.site/**"
+            "https://liberumscientia.site/tryfindme"
         )); // URLs permitidas
->>>>>>> a3fecb70dfef7da947a6f35d042398ca8e3c57d9
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true); // Permitir credenciais, se necessário
