@@ -33,27 +33,10 @@ public class SecurityConfig {
         configuration.setAllowCredentials(true); // Permitir credenciais, se necessário
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/auth/home", configuration); // Aplica para o login
+        source.registerCorsConfiguration("/auth/home", "/api/register", configuration); // Aplica para o login
         return source;
     }
 
-    // Configuração CORS específica para o /api/register
-    @Bean
-    public CorsConfigurationSource corsConfigurationSourceForRegister() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(
-            "https://liberumscientia.site", 
-            "https://liberumscientia.shop",
-            "https://liberumscientia.site/tryfindme"
-        )); // URLs permitidas para o /api/register
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Apenas POST para /api/register
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true); // Permitir credenciais
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/register", configuration); // Aplica apenas para o /api/register
-        return source;
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
