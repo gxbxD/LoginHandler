@@ -58,11 +58,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> {
+            .cors(cors -> 
                 // Configuração CORS global
-                cors.configurationSource(globalCorsConfigurationSource());
-            })
-            .and()
+                cors.configurationSource(globalCorsConfigurationSource())
+            )
             .authorizeRequests(requests -> requests
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api/register", "/auth/home", "/api/auth/home").permitAll()
                 .anyRequest().authenticated())
