@@ -47,7 +47,7 @@ public class SecurityConfig {
             "https://liberumscientia.site/tryfindme"
         )); // URLs permitidas para o /api/register
         configuration.setAllowedMethods(Arrays.asList("POST","GET","PUT")); // Apenas POST para /api/register
-        configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true); // Permitir credenciais
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
