@@ -33,11 +33,11 @@ public class SecurityConfig {
         configuration.setAllowCredentials(true); // Permitir credenciais, se necessário
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/auth/home", "/api/register", configuration); // Aplica para o login
+        source.registerCorsConfiguration("/**", configuration); // Aplica para o login
         return source;
     }
 
-
+    // Configuração CORS específica para o /api/register
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
