@@ -20,7 +20,7 @@ public class UserController {
                 authService.registerUser(userDto.getEmail(), userDto.getPassword());
                 return ResponseEntity.ok("Usuário Registrado com sucesso!");
             } catch (IllegalArgumentException e) {
-                return ResponseEntity.badRequest().body("Erro:" + e.getMessage());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
             }
         }
 }
