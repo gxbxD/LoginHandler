@@ -46,7 +46,7 @@ public class SecurityConfig {
             "https://liberumscientia.shop",
             "https://liberumscientia.site/tryfindme"
         )); // URLs permitidas para o /api/register
-        configuration.setAllowedMethods(Arrays.asList("POST","GET","PUT")); // Apenas POST para /api/register
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Apenas POST para /api/register
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true); // Permitir credenciais
 
