@@ -17,33 +17,60 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    // Configuração CORS global (para outros endpoints)
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource globalCorsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
             "https://liberumscientia.site", 
             "https://liberumscientia.shop", 
             "https://www.liberumscientia.site", 
             "https://www.liberumscientia.shop", 
+<<<<<<< HEAD
             "https://liberumscientia.site/"
         )); // URL do seu frontend
+=======
+            "https://liberumscientia.site/**"
+        )); // URLs permitidas
+>>>>>>> a3fecb70dfef7da947a6f35d042398ca8e3c57d9
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true); // Permitir credenciais, se necessário
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", configuration); // Aplica para todos os endpoints
+        return source;
+    }
+
+    // Configuração CORS específica para o /api/register
+    @Bean
+    public CorsConfigurationSource corsConfigurationSourceForRegister() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList(
+            "https://liberumscientia.site", 
+            "https://liberumscientia.shop"
+        )); // URLs permitidas para o /api/register
+        configuration.setAllowedMethods(Arrays.asList("POST")); // Apenas POST para /api/register
+        configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
+        configuration.setAllowCredentials(true); // Permitir credenciais
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/api/register", configuration); // Aplica apenas para o /api/register
         return source;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.cors() // Adiciona o filtro CORS
-        .and()
-                .authorizeRequests(requests -> requests
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api/register", "/auth/home", "/api/auth/home").permitAll()
-                        .anyRequest().authenticated())
-                .csrf(csrf -> csrf.disable());
+        http
+            .cors(cors -> {
+                // Configuração CORS global
+                cors.configurationSource(globalCorsConfigurationSource());
+            })
+            .and()
+            .authorizeRequests(requests -> requests
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api/register", "/auth/home", "/api/auth/home").permitAll()
+                .anyRequest().authenticated())
+            .csrf(csrf -> csrf.disable());
 
         return http.build();
     }
@@ -53,3 +80,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+
