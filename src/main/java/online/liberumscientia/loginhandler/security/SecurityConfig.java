@@ -33,7 +33,7 @@ public class SecurityConfig {
         configuration.setAllowCredentials(true); // Permitir credenciais, se necessário
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // Aplica para todos os endpoints
+        source.registerCorsConfiguration("/auth/home", configuration); // Aplica para o login
         return source;
     }
 
@@ -48,7 +48,7 @@ public class SecurityConfig {
         )); // URLs permitidas para o /api/register
         configuration.setAllowedMethods(Arrays.asList("POST")); // Apenas POST para /api/register
         configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
-        configuration.setAllowCredentials(false); // Permitir credenciais
+        configuration.setAllowCredentials(true); // Permitir credenciais
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/api/register", configuration); // Aplica apenas para o /api/register
