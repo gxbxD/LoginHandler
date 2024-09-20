@@ -27,11 +27,18 @@ public class AuthService {
     }
 
     public User registerUser(String email, String password) {
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(password));
-        return userRepository.save(user);
+    // Verifica se o email já está registrado
+    if (userRepository.findByEmail(email).isPresent()) {
+        throw new IllegalArgumentException("Este email já está em uso.");
     }
+
+    // Caso o email não esteja registrado, cria um novo usuário
+    User user = new User();
+    user.setEmail(email);
+    user.setPassword(passwordEncoder.encode(password));
+
+    return userRepository.save(user);
+}
 
     public User loginUser(String email, String password) {
         return userRepository.findByEmail(email)
