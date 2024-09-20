@@ -25,7 +25,7 @@ public class SecurityConfig {
             "https://liberumscientia.shop", 
             "https://www.liberumscientia.site", 
             "https://www.liberumscientia.shop", 
-            "https://liberumscientia.site/tryfindme"
+            "https://liberumscientia.site/**"
         )); // URL do seu frontend
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
