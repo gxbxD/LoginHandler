@@ -26,7 +26,8 @@ public class SecurityConfig {
             "https://liberumscientia.shop", 
             "https://www.liberumscientia.site", 
             "https://www.liberumscientia.shop", 
-            "https://liberumscientia.site/tryfindme"
+            "https://liberumscientia.site/tryfindme",
+            "http://localhost:3000"
         )); // URLs permitidas
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
@@ -38,6 +39,7 @@ public class SecurityConfig {
     }
 
     // Configuração CORS específica para o /api/register
+    @SuppressWarnings("deprecation")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
